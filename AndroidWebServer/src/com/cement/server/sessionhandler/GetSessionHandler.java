@@ -13,6 +13,7 @@ import com.cement.server.HttpRespons;
 import com.cement.server.fileoperate.FileOperater;
 import com.cement.utils.Constant;
 
+import android.app.admin.SystemUpdatePolicy;
 import android.net.Uri;
 import android.util.Log;
 
@@ -23,6 +24,7 @@ public class GetSessionHandler extends ASessionHandler{
 	}
 	@Override
 	public void handle(HttpRequest request, HttpRespons respons) {
+		System.out.println(">>>>>>>>>>>>>get>>>>>>>>>>>>>>>");
 		Uri  uri = Uri.parse(request.statu.getStrurl());
 		File outFile = new File(App.WEBROOT+uri.getEncodedPath());
 		

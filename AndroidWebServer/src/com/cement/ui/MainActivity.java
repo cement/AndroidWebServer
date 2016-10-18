@@ -1,6 +1,5 @@
 package com.cement.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.ImageColumns;
 import android.view.Menu;
@@ -21,7 +20,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
 	private EditText editText;
 	private Button buttonRoot;
