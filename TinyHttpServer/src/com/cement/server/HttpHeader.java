@@ -1,7 +1,8 @@
 package com.cement.server;
 
 import java.util.HashMap;
-import com.cement.utils.Constant;
+
+import com.cement.constants.Constant;
 
 
 public class HttpHeader extends HashMap<String,String> {

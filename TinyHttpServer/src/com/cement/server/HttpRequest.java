@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import com.cement.utils.Constant;
+
+import com.cement.constants.Constant;
 
 public class HttpRequest {
 

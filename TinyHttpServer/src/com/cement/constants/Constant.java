@@ -1,4 +1,4 @@
-package com.cement.utils;
+package com.cement.constants;
 
 public class Constant {
 

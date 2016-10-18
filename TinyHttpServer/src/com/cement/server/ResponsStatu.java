@@ -1,6 +1,6 @@
 package com.cement.server;
 
-import com.cement.utils.Constant;
+import com.cement.constants.Constant;
 
 public class ResponsStatu {
 	private  String proctrol;

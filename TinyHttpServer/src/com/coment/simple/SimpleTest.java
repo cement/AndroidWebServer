@@ -1,7 +1,7 @@
 package com.coment.simple;
 
+import com.cement.constants.Constant;
 import com.cement.server.EmbedHttpServer;
-import com.cement.utils.Constant;
 
 public class SimpleTest {
 
