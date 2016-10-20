@@ -1,15 +1,20 @@
 package com.cement.server;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.cement.server.handler.HandlerManager;
+import com.cement.server.handler.SessionManager;
+import com.cement.constants.Settings;
+import com.cement.constants.Settings.MODE;
 import com.cement.server.handler.ISessionHandler;
 
 
@@ -20,9 +25,19 @@ public class EmbedHttpServer{
     
 	public EmbedHttpServer(int port) {
 		mServerRunnabe = new ServerRnnable(port);
+		Runtime.getRuntime().addShutdownHook(new ShutdownHookThread());
 		mThreadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 	}
-	
+	public void setWebRoot(String webroot){
+		Settings.WEBROOT = webroot;
+	}
+	public void setVisitMode(MODE mode){
+		Settings.VISITMODE = mode;
+	}
+	public void setNotFindPage(String notfind){
+		Settings.NOTFIND_PAGE_PATH = notfind;
+		Settings.NOTFIND_PAGE_FILE = new File(Settings.NOTFIND_PAGE_PATH);
+	}
 	public void start() {
 		mServerRunnabe.startSelf();
 	}
@@ -30,10 +45,10 @@ public class EmbedHttpServer{
 		mServerRunnabe.stopSelf();  
 	}
 	public void addHandler(ISessionHandler handler){
-		HandlerManager.rigistSessionHandler(handler);
+		SessionManager.rigistSessionHandler(handler);
 	}
 	public void removeHandler(ISessionHandler handler){
-		HandlerManager.unRigistSessionHandler(handler);
+		SessionManager.unRigistSessionHandler(handler);
 	}
 	private class ServerRnnable implements Runnable{
 		
@@ -93,6 +108,7 @@ public class EmbedHttpServer{
 //				e.printStackTrace();
 //			}
 			//this.interrupt();
+			Scanner s;
 		}
 	}
 	private class SessionRunnable implements Runnable{
@@ -110,12 +126,8 @@ public class EmbedHttpServer{
 		@Override
 		public void run() {
 			try {
-				inStream = socket.getInputStream();
-				outStream = socket.getOutputStream();
-				HttpRequest request = new HttpRequest(inStream);
-				HttpRespons respons = new HttpRespons(outStream);
-				System.out.println(request);
-				HandlerManager.disapcthHandler(request, respons);
+				HttpSession session = new HttpSession(socket);
+				SessionManager.dispatchHandler(session);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}finally {
@@ -137,5 +149,13 @@ public class EmbedHttpServer{
 				e.printStackTrace();
 			}
 		}
+	}
+	private class ShutdownHookThread extends Thread{
+
+		@Override
+		public void run() {
+			System.out.println("............server is  shutdowning.............");
+		}
+		
 	}
 }

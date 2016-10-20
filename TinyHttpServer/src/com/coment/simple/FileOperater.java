@@ -6,8 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.cement.constants.Settings;
+
 public class FileOperater {
 
+	
+	
 	public static void writeOutFile(OutputStream outStream, File outFile){
 		   FileInputStream fileInStream = null;
 			try{

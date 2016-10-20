@@ -3,23 +3,23 @@ package com.cement.server.handler;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.cement.server.HttpRequest;
-import com.cement.server.HttpRespons;
+import com.cement.server.HttpSession;
 
-public class HandlerManager{
+public class SessionManager{
 	
-	
+	protected static DefaultSessionHander defaltHandler = new DefaultSessionHander();
 	protected static ArrayList<ISessionHandler> handlers = new ArrayList<ISessionHandler>();
 	
-	public static void disapcthHandler(HttpRequest request,HttpRespons respons) throws IOException{
-		String method = request.statu.getMethod();
+	public static void dispatchHandler(HttpSession session) throws IOException{
+		String reqMethod = session.getReqMethod();
+		System.out.println("..............disapcthHandler............."+reqMethod);
 		for (ISessionHandler handler:handlers) {
-			System.out.println("..............disapcthHandler............."+handler.getHandleMethodName());
-			if (method.equals(handler.getHandleMethodName())) {
-				handler.reply(request, respons);
+			if (reqMethod.equals(handler.getHandlerName())) {
+				handler.reply(session);
 				return;
 			}
 		}
+		defaltHandler.reply(session);
     }
 	public static void rigistSessionHandler(ISessionHandler handler){
 		handlers.add(handler);

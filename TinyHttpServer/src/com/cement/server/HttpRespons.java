@@ -5,20 +5,31 @@ import java.io.OutputStream;
 
 public class HttpRespons {
 
-	public  OutputStream outStream;
-	public  HttpHeader header;
-	public  ResponsStatu statu;
+	private  OutputStream outStream;
+	private  HttpHeader header;
+	
+	private  ResponsStatus status;
 
 	public HttpRespons(OutputStream outStream) {
 		this.outStream = outStream;
 		header = new HttpHeader();
-		statu = new ResponsStatu();
+		status = new ResponsStatus();
 	}
-	public void setHeader(String key,String value){
+	public void addHeader(String key,String value){
 		header.put(key, value);
 	}
-	public void setstatus(String status){
-		statu.setStatus(status);
+	public HttpHeader getHeader() {
+		return header;
 	}
-	
+	public OutputStream getOutStream() {
+		return outStream;
+	}
+	public ResponsStatus getStatus() {
+		return status;
+	}
+//	public void setResponesStatus(int code){
+//		String key = String.valueOf(code);
+//		String statu = Constant.PROCTROL11+Constant.SPACE+key+Constant.SPACE+Constant.RESPONES_STATUS.get(key)+Constant.CRLF;
+//		status.setStatus(statu);
+//	}
 }

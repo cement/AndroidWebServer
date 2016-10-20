@@ -10,11 +10,50 @@ public class ContentType {
 
 	}
 	public static String getType(File file) {
-		String typekey = file.getName().substring(file.getName().lastIndexOf(Constant.DOT));
-		return getType(typekey);
+		if(file.isDirectory()){
+			return "Directory";
+		}else{
+			String typekey = file.getName().substring(file.getName().lastIndexOf(Constant.DOT));
+			return getType(typekey);
+		}
 	}
+//	 public static Map<String, String> mimeTypes() {
+//	        if (MIME_TYPES == null) {
+//	            MIME_TYPES = new HashMap<String, String>();
+//	            loadMimeTypes(MIME_TYPES, "mimetypes.properties");
+//	            loadMimeTypes(MIME_TYPES, "META-INF/nanohttpd/mimetypes.properties");
+//	            if (MIME_TYPES.isEmpty()) {
+//	                LOG.log(Level.WARNING, "no mime types found in the classpath! please provide mimetypes.properties");
+//	            }
+//	        }
+//	        return MIME_TYPES;
+//	    }
+//
+//	    private static void loadMimeTypes(Map<String, String> result, String resourceName) {
+//	        try {
+//	            Enumeration<URL> resources = ContentType.class.getClassLoader().getResources(resourceName);
+//	            while (resources.hasMoreElements()) {
+//	                URL url = (URL) resources.nextElement();
+//	                Properties properties = new Properties();
+//	                InputStream stream = null;
+//	                try {
+//	                    stream = url.openStream();
+//	                    properties.load(stream);
+//	                } catch (IOException e) {
+//	                    LOG.log(Level.SEVERE, "could not load mimetypes from " + url, e);
+//	                } finally {
+//	                    safeClose(stream);
+//	                }
+//	                result.putAll((Map) properties);
+//	            }
+//	        } catch (IOException e) {
+//	            LOG.log(Level.INFO, "no mime types available at " + resourceName);
+//	        }
+//	    };
 
 	public static HashMap<String, String> MIME = new HashMap<String, String>() {
+		
+		
 		private static final long serialVersionUID = 1L;
 
 		{

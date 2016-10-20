@@ -2,7 +2,7 @@ package com.cement.server;
 
 import com.cement.constants.Constant;
 
-public class RequestStatu {
+public class RequestStatus {
 	
 	private String method;
 	private String strurl;
@@ -11,15 +11,12 @@ public class RequestStatu {
 //	private String baseurl;
 	private String proctrol;
 	
-	public RequestStatu() {
-		super();
-	}
-	public RequestStatu(String method, String strurl, String proctrol) {
+	public RequestStatus(String method, String strurl, String proctrol) {
 		this.method = method;
 		this.strurl = strurl;
 		this.proctrol = proctrol;
 	}
-	public RequestStatu(String strStatu) {
+	public RequestStatus(String strStatu) {
 		String[] arry = strStatu.split(Constant.SPACE);
 		if(arry.length == 3){
 			this.method = arry[0];
